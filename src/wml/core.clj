@@ -1,11 +1,13 @@
 (ns wml.core
   (:use compojure.core
-    ring.util.response
-    ring.adapter.jetty)
+	[ring.middleware.format-params :only [wrap-restful-params]]
+	[ring.middleware.format-response :only [wrap-restful-response]]
+        ring.util.response
+        ring.adapter.jetty)
   (:require [compojure.handler :as handler]
             [compojure.response :as response]
 	    [compojure.route :as route]
-	    [ring.middleware.json-params :as json-params]))
+	    ))
 
 (defroutes main-routes
   (GET "/" [:as req] "<h1>Hello World</h1>" (.toString req))
@@ -13,7 +15,8 @@
 
 (def app 
   (-> (handler/site main-routes)
-      json-params/wrap-json-params))
+      (wrap-restful-params)
+      (wrap-restful-response)))
 
 
 (defn -main [& args]
