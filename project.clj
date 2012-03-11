@@ -6,6 +6,7 @@
 		 [compojure "1.0.1"]
 		 [org.clojars.mikejs/ring-etag-middleware "0.1.0-SNAPSHOT"]
 		 [ring-middleware-format "0.1.2-SNAPSHOT"]]
-  :dev-dependencies [[lein-ring "0.5.4"]]
+  :dev-dependencies [[lein-ring "0.5.4"]
+                     [hiccup "0.3.7"]]
   :ring {:handler wml.core/app}
   :main wml.core)
