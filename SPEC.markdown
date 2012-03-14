@@ -97,16 +97,6 @@ e.g. a preface of a physical book.
 
                       * * *
 
-When we talk about all the collection-like entities like
-*Book* *Chapter*, they are only meaningful within a single
-*Book* scope. If there is any cross *Book*
-reference, a new entity must be introduced *Alias*.   
-
-*Alias* is a reference linking to external resource, in this context,
-means another *Book*. However, to make this simple, *Alias* will only
-represent collections. entities like *Article* *Preface* can be directly used in
-another *Book* scope. 
-
 ### Workflow
 
 Functional Requirement
@@ -136,4 +126,99 @@ country's piracy policy.
 
 Technical Requirement
 ---------------------
+
+At *Article* level, everything can be referenced using uri.
+Everything inside an *Article* should be referenced using relative uri.
+Everything inside the system should be referenced using absolute uri
+without base domain.
+
+### Entities
+
+*Book*
+
+    {
+      "title" : "The programmer of first order",
+      "type" : "Series",
+      "categories" : ["novel", "magic", "dnd"]
+      "authors" : ["albert.lai"],
+      "pub_date" : 129830293,
+      "collections" : [
+        { 
+	  "title" : "Preface",
+	  "href" : "/albert.lai/books/1/articles/1"
+	},
+	{
+	  "title" : "Game of Hungers",
+	  "subtitle" : "The price of fool",
+          "href" : "/albert.lai/books/1/chapters/1"
+	}
+      ],
+      "version" : 1,
+      "create_date" : 123422323,
+      "create_by" : "albert.lai"
+    }
+
+*Chapter*
+
+*Chapter* depth <= 10
+
+    {
+      "title" : "Game of Hungers",
+      "subtitle" : "The price of fool",
+      "type" : "Chapter",
+      "collections" : [
+        {
+	  "title" : "The new king of Forena",
+	  "href" : "/albert.lai/books/1/articles/2"
+	},
+	{
+	  "title" : "Training of a king",
+	  "href" : "/albert.lai/books/1/chapters/2"
+	}
+      ],
+      "version" : 1,
+      "create_date" : 12321312312,
+      "
+    }
+
+*Article*
+
+    {
+      "title" : "The new king of Forena",
+      "style" : "/albert.lai/books/1/css/art1.css",
+      "format" : "markdown",
+      "body" : "Once upon a time....",
+      "version" : 1,
+      "create_date" : 1234243234
+    }
+
+### API
+
+GET - read
+POST - partial change, or new resource under root entity
+PUT - update
+DELETE - delete
+
+#### Author API
+
+    /{author} - reserved
+    GET, POST, PUT /{author}/profile - author information
+    GET, POST /{author}/books - list of all books written by this author
+    GET, POST, PUT, DELETE /{author}/books/{id|name} - show the book content, not flatten
+    GET /{author}/books/{id|name}/flatten.{format} - flatten the book as a single document
+    GET, POST /{author}/books/{id|name}/chapters - list of chapters in the book, not flatten
+    GET, POST, PUT, DELETE /{author}/books/{id|name}/chapters/{id|name} - show the chapter content
+    GET, POST /{author}/books/{id|name}/articles - list of articles in the book, not flatten
+    GET, POST, PUT /{author}/books/{id|name}/articles/{id|name} -  show the article content(plain text)
+
+#### Publishing API
+
+    POST/showrooms/publish - for publishing book to /showrooms
+    GET /showrooms/{name} - list of books in showrooms
+    GET /showrooms/{name}/books/{id|name} - the actual book for read anywhere.
+    
+#### Public Shelf API
+
+    GET, POST /shelfs - create new shelf
+    GET /shelfs/{shelf} - shelf content
 
