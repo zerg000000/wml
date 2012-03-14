@@ -32,7 +32,7 @@ even in this context, that would be too complex for my standard.
 Therefore, I define a model here to present a very simple
 Document Concept Model to suit my need.
 
-                    * * *
+* * *
 
 A complete *Book*, *Episode*, *Section*, *Chapter* actually
 is a collection of articles or others collections.
@@ -80,7 +80,7 @@ To summary, *Book* and *Chapter* are collection of *Chapter* and articles.
 but cannot be the top level entity. Both *Book* and
 *Chapter* can be renamed as user needs.
 
-                          * * *
+* * *
 
 *Article* is the minimum parts of the system. *Article cannot be
 subdivide to any smaller parts that will be describe as an
@@ -94,8 +94,6 @@ e.g. a preface of a physical book.
 
 *Preface*, *Reference*, *Glossory*, *TOC* are just a specialized *Article*.
 *TOC*, *Annotation* should be generated automatically.
-
-                      * * *
 
 ### Workflow
 
@@ -194,10 +192,10 @@ without base domain.
 
 ### API
 
-GET - read
-POST - partial change, or new resource under root entity
-PUT - update
-DELETE - delete
+* GET - read
+* POST - partial change, or new resource under root entity
+* PUT - update
+* DELETE - delete
 
 #### Author API
 
