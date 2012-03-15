@@ -9,6 +9,7 @@
     [:link {:type "text/css" :rel "stylesheet" :href "/css/site.css"}]
     (:stylesheet data)
     [:link {:type "text/css" :rel "stylesheet" :href "/css/style.css"}]
+    (include-js "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
     (:head-js data)
   ]
   [:body

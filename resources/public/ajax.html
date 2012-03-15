@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ajax client</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			var vals = {
+				uri: $('#uri'),
+				accept: $('#accept'),
+				method: $('#method'),
+				adhoc: $('#ex')
+			};
+			$('#run').click(function(e) {
+				$.ajax(vals.uri.val(), {
+					dataType : [vals.accept.val()]
+				}).done(function(d) {
+					vals.adhoc.val(d);
+					console.log("I have run something");
+				});
+			});
+		});
+		</script>
+	</head>
+<body>
+<div>
+<select id="method" name="method">
+    <option value="GET">GET</option>
+    <option value="POST">POST</option>
+    <option value="PUT">PUT</option>
+    <option value="DELETE">DELETE</option>
+</select>
+<select id="accept" name="accept">
+    <option value="text/html">text/html</option>
+    <option value="text/plain">text/plain</option>
+    <option value="json/application">json/application</option>
+    <option value="yaml/application">yaml/application</option>
+</select>
+    <label for="uri">URL</label>
+    <input type="text" id="uri" name="uri" />
+<button id="run">Run</button>
+</div>
+<div>
+	<textarea id="ex"></textarea>
+</div>
+
+</body>
+</html>
