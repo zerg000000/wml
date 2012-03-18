@@ -23,7 +23,7 @@
     ))
   (let [resolver (ns-view-resolve ['views])]
     (testing "resolve sub-ns functions"
-      (is (= "<!DOCTYPE html>\n<html><head><title>hello</title><link href=\"/css/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"><link href=\"/css/site.css\" rel=\"stylesheet\" type=\"text/css\"><link href=\"/css/style.css\" rel=\"stylesheet\" type=\"text/css\"></head><body><div class=\"navbar navbar-fixed-top\"><div class=\"navbar-inner\"><div class=\"container\"><a class=\"brand\" href=\"#\">Project name</a></div></div></div><div class=\"container\"><h1>hello</h1></div></body></html>" ((resolver 'main/index) {:id "hello"})))
+      (is (= "<!DOCTYPE html>\n<html><head><title>hello</title><link href=\"/css/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"><link href=\"/css/site.css\" rel=\"stylesheet\" type=\"text/css\"><link href=\"/css/style.css\" rel=\"stylesheet\" type=\"text/css\"><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js\" type=\"text/javascript\"></script></head><body><div class=\"navbar navbar-fixed-top\"><div class=\"navbar-inner\"><div class=\"container\"><a class=\"brand\" href=\"#\">Project name</a></div></div></div><div class=\"container\"><h1>hello</h1></div></body></html>" ((resolver 'main/index) {:id "hello"})))
    ))
 )
 

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ajax client</title>
+      <title>ajax client</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
 			var vals = {
-				uri: $('#uri'),
+                                uri: $('#uri'),
 				accept: $('#accept'),
+                                ctype: $('#ctype'),
 				method: $('#method'),
-				adhoc: $('#ex')
+			        c : $('#content')
 			};
 			$('#run').click(function(e) {
 				$.ajax(vals.uri.val(), {
-					dataType : [vals.accept.val()]
+                                        type : vals.method.val(),
+                                        data : vals.c.val(),
+					dataType : "json",
+                                        contentType : vals.ctype.val()
 				}).done(function(d) {
-					vals.adhoc.val(d);
+					vals.response.val(d);
 					console.log("I have run something");
 				});
 			});
@@ -30,19 +34,27 @@
     <option value="PUT">PUT</option>
     <option value="DELETE">DELETE</option>
 </select>
-<select id="accept" name="accept">
+<select id="ctype" name="ctype">
     <option value="text/html">text/html</option>
     <option value="text/plain">text/plain</option>
-    <option value="json/application">json/application</option>
-    <option value="yaml/application">yaml/application</option>
+    <option value="application/json">application/json</option>
+    <option value="application/yaml">application/yaml</option>
+</select>
+<select id="accept" name="accept">
+    <option value="xml">xml</option>
+    <option value="json">json</option>
+    <option value="script">script</option>
+    <option value="html">html</option>
 </select>
     <label for="uri">URL</label>
     <input type="text" id="uri" name="uri" />
 <button id="run">Run</button>
 </div>
 <div>
-	<textarea id="ex"></textarea>
+	<textarea id="content"></textarea>
 </div>
-
+<div>
+  <textarea id="response"></textarea>
+</div>
 </body>
 </html>

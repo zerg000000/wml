@@ -4,7 +4,7 @@ WML Specification
 Introduction
 ------------
 
-This is a piracy document management system. With piracy in mind,
+This is a simple document management system,
 providing easy-to-use document writing and organizing functionalities.
 
 Technology
@@ -100,7 +100,7 @@ e.g. a preface of a physical book.
 Functional Requirement
 ----------------------
 
-### Piracy
+### Piracy( Deprecated)
 
 Since the piracy policy of different countries becomes less and less
 restrictive, the system should not make any assumption on
