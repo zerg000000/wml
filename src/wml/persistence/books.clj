@@ -5,6 +5,5 @@
             [clojurewerkz.elastisch.utils :as utils]
             [clojurewerkz.elastisch.query :as query]]))
 
-(register-author [new-author])
 (author-exist? [author-name])
 
