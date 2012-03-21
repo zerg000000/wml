@@ -28,7 +28,26 @@
       (validate-val :collections seq {:collections [:empty]}))
 ))
 
-(def validate-chapter
+(def books-mapping {
+  :book {
+    :properties {
+      :title { :type "string" :store "yes" }
+      :type { :type "string :store "yes" }
+      :categories { :type "string" :store "yes" }
+      :authors { :type "string" :store "yes" }
+      :pub-date { :type "date" :store "yes" }
+      :collections {
+        :properties {
+	  :title { "type" : "string" }
+          :href { :type "string" }
+	}
+	:store "yes"
+      }
+    }
+  }
+})
+
+(def validate-article
   (validations
     (validate-val :title seq
                   {:title [:required]})
@@ -38,7 +57,22 @@
       (validate-val :collections seq {:collections [:empty]})))
 )
 
-(def validate-article
+(def article-mapping {
+  :article {
+    :properties {
+      :title { :type "string" }
+      :type { :type "string" }
+      :collections {
+        :properties {
+	  :title { :type "string" }
+	  :href { :type "string" }
+	}
+      }
+    }
+  }
+})
+
+(def validate-section
   (validations
     (validate-val :title seq
                   {:title [:required]})
@@ -46,6 +80,14 @@
                   {:format [:required]})
     (validate-val :body seq
                   {:body [:required]})))
+
+(def section-mapping {
+  :properties {
+    :title { :type "string" }
+    :format { :type "string" }
+    :body { :type "string" }
+  }
+})
 
 (def validate-ref
   (validations

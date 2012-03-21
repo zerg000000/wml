@@ -13,6 +13,7 @@
       (wrap-restful-params)
       (resp/wrap-json-response :predicate resp/json-accepted?)
       (wrap-html-response)
+      (resp/wrap-yaml-in-html-response)
       ))
 
 (defn -main [& args]
