@@ -1,4 +1,4 @@
-(ns wml.model.books 
+(ns wml.model.books
   (:use decline.core))
 
 (defn optional [key validate-fn]
@@ -14,12 +14,12 @@
 
 (def validate-book
   (validations
-    (validate-val :title seq 
+    (validate-val :title seq
                   {:title [:required]})
-    (optional :type 
+    (optional :type
       (validate-val :type seq {:type [:empty]}))
     (optional :categories
-      (validate-val :categories seq {:categories [:empty]})) 
+      (validate-val :categories seq {:categories [:empty]}))
     (optional :authors
       (validate-val :authors seq {:authors [:empty]}))
     (optional :pub-date
@@ -27,25 +27,6 @@
     (optional :collections
       (validate-val :collections seq {:collections [:empty]}))
 ))
-
-(def books-mapping {
-  :book {
-    :properties {
-      :title { :type "string" :store "yes" }
-      :type { :type "string :store "yes" }
-      :categories { :type "string" :store "yes" }
-      :authors { :type "string" :store "yes" }
-      :pub-date { :type "date" :store "yes" }
-      :collections {
-        :properties {
-	  :title { "type" : "string" }
-          :href { :type "string" }
-	}
-	:store "yes"
-      }
-    }
-  }
-})
 
 (def validate-article
   (validations
@@ -57,21 +38,6 @@
       (validate-val :collections seq {:collections [:empty]})))
 )
 
-(def article-mapping {
-  :article {
-    :properties {
-      :title { :type "string" }
-      :type { :type "string" }
-      :collections {
-        :properties {
-	  :title { :type "string" }
-	  :href { :type "string" }
-	}
-      }
-    }
-  }
-})
-
 (def validate-section
   (validations
     (validate-val :title seq
@@ -80,14 +46,6 @@
                   {:format [:required]})
     (validate-val :body seq
                   {:body [:required]})))
-
-(def section-mapping {
-  :properties {
-    :title { :type "string" }
-    :format { :type "string" }
-    :body { :type "string" }
-  }
-})
 
 (def validate-ref
   (validations
