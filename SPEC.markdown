@@ -18,7 +18,7 @@ The following would be the core technology that implements the system.
 
 - Bootstrap
 - Compojure
-- MongoDB
+- ElasticSearch
 
 Requirement
 -----------

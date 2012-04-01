@@ -1,10 +1,5 @@
 (ns wml.persistence.schema
-  (:require [clojurewerkz.elastisch.document      :as document]
-            [clojurewerkz.elastisch.rest          :as rest]
-            [clojurewerkz.elastisch.index         :as index]
-            [clojurewerkz.elastisch.utils         :as utils]
-            [clojurewerkz.elastisch.query         :as query]
-            [wml.model.books :as books]))
+  (:require [clojurewerkz.elastisch.index         :as index]))
 
 (def books-mapping {
   :book {
@@ -35,6 +30,7 @@
           :title { :type "string" }
           :href { :type "string" }
         }
+        :store "yes"
       }
     }
   }
@@ -51,9 +47,12 @@
 })
 
 (def mappings {
-  "books" books/books-mapping
-  "articles" books/article-mapping
-  "sections" books/section-mapping
+  ::books books-mapping
+  ::articles article-mapping
+  ::sections section-mapping
  })
+
 (defn create-schema []
   (doall (map #(index/create (first %) :mappings (second %)) mappings)))
+(defn delete-schema []
+  (doall (map #(index/delete (first %)) mappings)))

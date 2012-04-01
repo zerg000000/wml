@@ -1,4 +1,6 @@
 (ns wml.model.books
+  (:require [pretzel.strings :as strings]
+            [wml.persistence.books :as p])
   (:use decline.core))
 
 (defn optional [key validate-fn]
@@ -62,3 +64,12 @@
       (validate-val :password seq {:password [:empty]})))
 )
 
+(def book-seq (atom 0))
+(defn new-book [book]
+  (let [errors (validate-book book)]
+    (if (and (nil? errors)
+             (not (p/exist-book? book)))
+      (let [q (swap! book-seq + 1)]
+        (p/save-book book @book-seq))
+      errors))
+)

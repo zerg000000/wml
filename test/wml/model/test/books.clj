@@ -1,4 +1,7 @@
 (ns wml.model.test.books
+  (:require [wml.persistence.test.dumb-data       :as d]
+            [wml.persistence.schema               :as schema]
+            [wml.persistence.books                :as p])
   (:use clojure.test
         decline.core
         wml.model.books))
@@ -33,4 +36,18 @@
       
     )
   )
-) 
+)
+
+(deftest new-book-spec
+  (schema/create-schema)
+  (testing "create a new book"
+    (is (new-book {:title "a book"
+                      :collections [
+                        {:title "1" :href "steve-job/books/1"}
+                      ]}))
+    (let [book (p/get-book 0)]
+      (println book))
+    (is (= {:title [:required]} (new-book {})))
+  )
+  (schema/delete-schema)
+)
