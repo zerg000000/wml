@@ -1,5 +1,7 @@
 (ns wml.persistence.schema
-  (:require [clojurewerkz.elastisch.index         :as index]))
+  (:require [clojurewerkz.elastisch.index         :as index]
+            [clojurewerkz.elastisch.query         :as query]
+            [clojurewerkz.elastisch.document      :as document]))
 
 (def books-mapping {
   :book {
@@ -47,12 +49,13 @@
 })
 
 (def mappings {
-  ::books books-mapping
-  ::articles article-mapping
-  ::sections section-mapping
+  :books books-mapping
+  :articles article-mapping
+  :sections section-mapping
  })
 
 (defn create-schema []
   (doall (map #(index/create (first %) :mappings (second %)) mappings)))
 (defn delete-schema []
+  (doall (map #(document/delete-by-query (first %) (first (keys (second %))) {:query {:match-all {}}}) mappings))
   (doall (map #(index/delete (first %)) mappings)))

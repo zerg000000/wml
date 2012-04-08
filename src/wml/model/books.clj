@@ -65,11 +65,20 @@
 )
 
 (def book-seq (atom 0))
+
 (defn new-book [book]
   (let [errors (validate-book book)]
     (if (and (nil? errors)
              (not (p/exist-book? book)))
-      (let [q (swap! book-seq + 1)]
+      (let [_ (swap! book-seq + 1)
+            thebook (assoc book :id @book-seq)]
         (p/save-book book @book-seq))
-      errors))
+        errors))
 )
+
+(defn edit-book [book]
+  (let [errors (validate-book book)]
+    (if (and (nil? errors)
+             (p/exist-book? book))
+      (p/save-book book)
+      errors)))

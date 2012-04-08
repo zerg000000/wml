@@ -7,9 +7,14 @@
 
 (defn author-exist? [author-name] (document/present? "authors" "author" author-name))
 
-(defn exist-book? [book] (document/present? "books" "book" (:id book)))
+(defn exist-book? [book] (if-let [id (:id book)]
+                           (document/present? "books" "book" id)
+                           false
+                           ))
 
-(defn save-book [book & id] (document/put "books" "book" id book))
+(defn save-book
+  ([book] (document/put "books" "book" (:id book) book))
+  ([book id] (document/put "books" "book" id book)))
 
 (defn save-section [section & id] (document/put "sections" "section" id section))
 

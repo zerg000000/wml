@@ -45,8 +45,6 @@
                       :collections [
                         {:title "1" :href "steve-job/books/1"}
                       ]}))
-    (let [book (p/get-book 0)]
-      (println book))
     (is (= {:title [:required]} (new-book {})))
   )
   (schema/delete-schema)
