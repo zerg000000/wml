@@ -5,20 +5,22 @@
             [clojurewerkz.elastisch.utils :as utils]
             [clojurewerkz.elastisch.query :as query]))
 
-(defn author-exist? [author-name] (document/present? "authors" "author" author-name))
+(defn author-exist? [author-name] (document/present? :wml "author" author-name))
 
 (defn exist-book? [book] (if-let [id (:id book)]
-                           (document/present? "books" "book" id)
+                           (document/present? :wml "book" id)
                            false
                            ))
 
 (defn save-book
-  ([book] (document/put "books" "book" (:id book) book))
-  ([book id] (document/put "books" "book" id book)))
+  ([book] (document/put :wml "book" (:id book) book))
+  ([book id] (document/put :wml "book" id book)))
 
-(defn save-section [section & id] (document/put "sections" "section" id section))
+(defn save-section
+  ([section] (document/put :wml "section" (:id section) section))
+  ([section & id] (document/put :wml "section" id section)))
 
-(defn get-book [book-id] (document/get "books" "book" book-id))
+(defn get-book [book-id] (document/get :wml "book" book-id))
 
-(defn get-section [section-id] (document/get "sections" "section" section-id))
+(defn get-section [section-id] (:_source (document/get :wml "section" section-id)))
 

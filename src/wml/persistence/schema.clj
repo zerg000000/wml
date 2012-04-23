@@ -48,14 +48,10 @@
   }
 })
 
-(def mappings {
-  :books books-mapping
-  :articles article-mapping
-  :sections section-mapping
- })
+(def mappings (merge books-mapping article-mapping section-mapping))
 
 (defn create-schema []
-  (doall (map #(index/create (first %) :mappings (second %)) mappings)))
+  (index/create :wml :mappings mappings))
 (defn delete-schema []
-  (doall (map #(document/delete-by-query (first %) (first (keys (second %))) {:query {:match-all {}}}) mappings))
-  (doall (map #(index/delete (first %)) mappings)))
+  (map #(document/delete-by-query :wml (first %) {:matchAll {}}) mappings)
+  (index/delete :wml))

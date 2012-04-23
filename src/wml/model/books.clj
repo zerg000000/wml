@@ -82,3 +82,9 @@
              (p/exist-book? book))
       (p/save-book book)
       errors)))
+
+(defn save-section [section]
+  (let [_ (swap! book-seq + 1)
+        thesection (assoc section :id @book-seq)]
+    (p/save-section thesection)))
+
