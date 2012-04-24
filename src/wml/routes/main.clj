@@ -13,7 +13,7 @@
   (POST "/sections" [:as {section :body-params}]
     {:body (save-section section)})
   (PUT "/sections/:id" [id :as {section :body-params}]
-    {:body (save-section (assoc section :id id))})
+    {:body (save-section (assoc section "id" id))})
   (DELETE "/sections/:id" [id :as {section :body-params}]
     (p/remove-section id))
 )
