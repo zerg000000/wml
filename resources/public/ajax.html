@@ -5,23 +5,30 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
+                        var methods = ['GET','POST','PUT','DELETE'];
+                        var accepts = ['text/html','text/plain','application/json','application/yaml'];
+                        var contenttypes = ['xml','json','script','html'];
+
 			var vals = {
                                 uri: $('#uri'),
 				accept: $('#accept'),
                                 ctype: $('#ctype'),
 				method: $('#method'),
-			        c : $('#content')
+                                c : $('#content'),
+                                response : $('#response')
 			};
 			$('#run').click(function(e) {
 				$.ajax(vals.uri.val(), {
                                         type : vals.method.val(),
                                         data : vals.c.val(),
 					dataType : "json",
-                                        contentType : vals.ctype.val()
-				}).done(function(d) {
-					vals.response.val(d);
-					console.log("I have run something");
-				});
+                                        contentType : vals.ctype.val(),
+                                        success : function(d){
+                                          //only working on modren browser
+                                          vals.response.val(JSON.stringify(d));
+                                          console.log(d);
+                                          }
+                                        });
 			});
 		});
 		</script>

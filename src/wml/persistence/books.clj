@@ -1,8 +1,8 @@
 (ns wml.persistence.books
-  (:require [clojurewerkz.elastisch.document :as document]
+  (:require [clojurewerkz.elastisch.rest.document :as document]
             [clojurewerkz.elastisch.rest :as rest]
-            [clojurewerkz.elastisch.index :as index]
-            [clojurewerkz.elastisch.utils :as utils]
+            [clojurewerkz.elastisch.rest.index :as index]
+            [clojurewerkz.elastisch.rest.utils :as utils]
             [clojurewerkz.elastisch.query :as query]))
 
 (defn author-exist? [author-name] (document/present? :wml "author" author-name))
@@ -17,8 +17,12 @@
   ([book id] (document/put :wml "book" id book)))
 
 (defn save-section
-  ([section] (document/put :wml "section" (:id section) section))
-  ([section & id] (document/put :wml "section" id section)))
+  ([section] (document/put :wml "section" (:id section) section) section)
+  ([section & id] 
+    (document/put :wml "section" id (assoc section :id id))))
+
+(defn remove-section
+  ([id] (document/delete :wml "section" id)))
 
 (defn get-book [book-id] (document/get :wml "book" book-id))
 

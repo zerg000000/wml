@@ -3,6 +3,7 @@
 	[ring.middleware.format-params :only [wrap-restful-params]]
         ring.util.response
         ring.adapter.jetty
+        hiccup.bootstrap.middleware
         [wml.middleware.format-response :only [wrap-html-response]]
         [wml.routes.main :as main])
   (:require [compojure.handler :as handler]
@@ -10,10 +11,9 @@
 	    ))
 (def app 
   (-> (handler/api main/main-routes)
+      (wrap-bootstrap-resources)
       (wrap-restful-params)
-      (resp/wrap-json-response :predicate resp/json-accepted?)
-      (wrap-html-response)
-      (resp/wrap-yaml-in-html-response)
+      (resp/wrap-restful-response)  
       ))
 
 (defn -main [& args]

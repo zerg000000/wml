@@ -4,27 +4,23 @@
     (:require [compojure.route :as route]
               [wml.persistence.books :as p]))
 
-(defroutes author-profile-routes
-  (GET "/:author/profile" [author :as req] {:body {:page "main/profile" :data author}})
-  (PUT "/:author/profile" [author :as req] {:body {:request req :id author}})
-)
-
 (defroutes section-routes
-  (GET "/:author/sections/:id" [author id :as req]
-    {:body (p/get-section id)})
-  (POST "/:author/sections" [author :as {section :body-params}]
-    (save-section section))
+  (GET "/sections/:id" [id :as req]
+    (let [section (p/get-section id)]
+      (if section
+        {:body section}
+        {:status 404})))
+  (POST "/sections" [:as {section :body-params}]
+    {:body (save-section section)})
+  (PUT "/sections/:id" [id :as {section :body-params}]
+    {:body (save-section (assoc section :id id))})
+  (DELETE "/sections/:id" [id :as {section :body-params}]
+    (p/remove-section id))
 )
 (defroutes main-routes
   (route/resources "/")
-  (PUT "/join" [:as {new-author :params}] {:body {"valid" (validate-book new-author)
-                                "data" new-author}}) 
   section-routes
-  author-profile-routes
-  (GET "/:author/books" [author] {:body {:page "main/books" :data author}})
-
-  (GET "/:id" [id :as req] {:body {:page "main/index" :data {:id id}}}) 
-  (route/not-found {:page "error/error-page" :data {:title "Page not found"}})
+  (route/not-found {:status 404})
 )
 
 
