@@ -42,11 +42,11 @@
 
 (def validate-section
   (validations
-    (validate-val :title seq
+    (validate-val "title" seq
                   {:title [:required]})
-    (validate-val :format seq
+    (validate-val "format" seq
                   {:format [:required]})
-    (validate-val :body seq
+    (validate-val "body" seq
                   {:body [:required]})))
 
 (def validate-ref
@@ -83,8 +83,22 @@
       (p/save-book book)
       errors)))
 
-(defn save-section [section]
-  (let [_ (swap! book-seq + 1)
-        thesection (assoc section :id @book-seq)]
-    (p/save-section thesection)))
+(defn new-section [section]
+  (let [errors (validate-section section)]
+    (if (and (not errors)
+             (p/exist-section? section))
+       (let [_ (swap! book-seq + 1)
+             thesection (assoc section :id @book-seq)]
+         (p/save-section thesection))
+       errors)))
 
+(defn edit-section [section]
+  (let [errors (validate-section section)]
+    (if (and (not errors)
+             (p/exist-section? section))
+       (p/save-section section)
+       errors)))
+
+(defn remove-section [section]
+  "remove section and return related documents"
+)

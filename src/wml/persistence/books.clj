@@ -11,6 +11,10 @@
                            (document/present? :wml "book" id)
                            false
                            ))
+(defn exist-section? [section] (if-let [id (:id section)]
+                                 (document/present? :wml "section" id)
+                                 false
+                                 ))
 
 (defn save-book
   ([book] (document/put :wml "book" (:id book) book))

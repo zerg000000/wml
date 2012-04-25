@@ -51,7 +51,8 @@
 (def mappings (merge books-mapping article-mapping section-mapping))
 
 (defn create-schema []
-  (index/create "wml" :mappings mappings))
+  (if (not (exist? "wml"))
+    (index/create "wml" :mappings mappings)))
 (defn delete-schema []
   (map #(document/delete-by-query "wml" (first %) {:matchAll {}}) mappings)
   (index/delete "wml"))

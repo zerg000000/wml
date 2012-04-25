@@ -10,4 +10,3 @@
       errors)))
 
 (defn change-password [author password] nil)
-
