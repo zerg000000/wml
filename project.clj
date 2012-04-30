@@ -16,6 +16,6 @@
                  [clojurewerkz/elastisch "1.0.0-SNAPSHOT"]
                  ]
   :plugins [[lein-ring "0.6.4"]
-            [lein-swank "1.4.2"]]
+            [lein-swank "1.4.4"]]
   :ring {:handler wml.core/app}
   :main wml.core)
