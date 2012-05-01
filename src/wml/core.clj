@@ -9,8 +9,8 @@
             [clojurewerkz.elastisch.rest :as rest]
 	    ))
 
-(reset! rest/*endpoint* (rest/ElasticSearchEndpoint. 
-  (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200/")))
+(if-let [url (get (System/getenv) "BONSAI_INDEX_URL")]
+  (rest/connect! url))
 
 (def app 
   (-> (handler/api main/main-routes)
