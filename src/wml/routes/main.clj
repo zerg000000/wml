@@ -23,27 +23,8 @@
     (p/remove-section id))
 )
 
-(defroutes article-routes
-  (GET "/:id" [id :as req]
-    (let [article (p/get-article id)]
-      (if article 
-        {:body article}
-        {:status 404})))
-  (POST "/new" [:as {article :body-params}]
-    (let [errors (m/new-article article)]
-        {:body errors
-         :status (if (contains? errors :id) 201 404) }))
-  (PUT "/:id" [id :as {article :body-params}]
-    (let [edit-article (assoc article "id" id)
-          errors (m/edit-article edit-article)]
-      (if errors {:status 404 :body errors} {:body edit-article})
-      ))
-  (DELETE "/:id" [id :as {article :body-params}]
-    (p/remove-article id))
-
 (defroutes main-routes
   (context "/sections" [] section-routes)
-  (context "/articles" [] article-routes)
   (route/resources "/")
   (route/not-found {:status 404})
 )

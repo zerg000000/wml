@@ -5,9 +5,5 @@
         wml.model.core)
   )
 
-(def validate-article
-  (validations
-    (validate-val "title" seq
-                  {:title [:required]})
-    (optional "subtitle"
-      (validate-val "subtitle" seq {:subtitle [:empty]})
+(defn new-article _ nil)
+(defn edit-article _ nil)

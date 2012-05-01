@@ -27,8 +27,11 @@
 
 (defn remove-section
   ([id] (document/delete :wml "section" id)))
+(defn remove-article
+  ([id] (document/delete :wml "article" id)))
 
 (defn get-book [book-id] (document/get :wml "book" book-id))
 
 (defn get-section [section-id] (:_source (document/get :wml "section" section-id)))
 
+(defn get-article [article-id] (:_source (document/get :wml "article" article-id)))
