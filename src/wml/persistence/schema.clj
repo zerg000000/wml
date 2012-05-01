@@ -1,7 +1,8 @@
 (ns wml.persistence.schema
   (:require [clojurewerkz.elastisch.rest.index         :as index]
             [clojurewerkz.elastisch.query         :as query]
-            [clojurewerkz.elastisch.rest.document      :as document]))
+            [clojurewerkz.elastisch.rest.document      :as document]
+            [clojurewerkz.elastisch.rest :as rest))
 
 (def books-mapping {
   :book {
@@ -59,5 +60,5 @@
 
 (defn -main [& args]
   (do
-    (connect! (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200"))
+    (rest/connect! (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200"))
     (create-schema)))
