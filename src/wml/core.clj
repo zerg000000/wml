@@ -9,7 +9,7 @@
             [clojurewerkz.elastisch.rest :as rest]
 	    ))
 
-(reset! rest/*endpoint* (ElasticSearchEndpoint. 
+(reset! rest/*endpoint* (rest/ElasticSearchEndpoint. 
   (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200/")))
 
 (def app 
