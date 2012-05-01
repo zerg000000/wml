@@ -2,7 +2,7 @@
   (:require [clojurewerkz.elastisch.rest.index         :as index]
             [clojurewerkz.elastisch.query         :as query]
             [clojurewerkz.elastisch.rest.document      :as document]
-            [clojurewerkz.elastisch.rest :as rest))
+            [clojurewerkz.elastisch.rest :as rest]))
 
 (def books-mapping {
   :book {
