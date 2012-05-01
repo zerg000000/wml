@@ -58,4 +58,6 @@
   (index/delete "wml"))
 
 (defn -main [& args]
-  (create-schema))
+  (do
+    (connect! (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200"))
+    (create-schema)))
