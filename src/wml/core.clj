@@ -9,13 +9,20 @@
             [clojurewerkz.elastisch.rest :as rest]
 	    ))
 
-(if-let [url (get (System/getenv) "BONSAI_INDEX_URL")]
-  (rest/connect! url))
+(defn wrap-elasticsearch-connection [h]
+  (fn [req]
+    (let [url (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200/")]
+      (do (println "connecting to " url)
+          (rest/connect! url)
+          (h req)))
+    ))
+  
 
 (def app 
   (-> (handler/api main/main-routes)
       (wrap-restful-params)
       (resp/wrap-restful-response)  
+      (wrap-elasticsearch-connection)
       ))
 
 (defn -main [& args]
