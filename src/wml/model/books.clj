@@ -18,9 +18,9 @@
 (defn new-section [section]
   (let [errors (validate-section section)]
     (if (and (not errors)
-             (p/exist-section? section))
+             (not (p/exist-section? section)))
        (let [_ (swap! book-seq + 1)
-             thesection (assoc section :id @book-seq)]
+             thesection (assoc section "id" @book-seq)]
          (p/save-section thesection))
        errors)))
 

@@ -11,7 +11,7 @@
 
 (defn wrap-elasticsearch-connection [h]
   (fn [req]
-    (let [url (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200/")]
+    (let [url (get (System/getenv) "BONSAI_INDEX_URL" "http://localhost:9200")]
       (do (println "connecting to " url)
           (rest/connect! url)
           (h req)))
