@@ -56,3 +56,6 @@
 (defn delete-schema []
   (map #(document/delete-by-query "wml" (first %) {:matchAll {}}) mappings)
   (index/delete "wml"))
+
+(defn -main [& args]
+  (create-schema))
